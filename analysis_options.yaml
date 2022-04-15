@@ -1,3 +1,1 @@
-include: package:flutter_lints/flutter.yaml
-linter:
-  rules:
+include: package:pedantic_mono/analysis_options.yaml
