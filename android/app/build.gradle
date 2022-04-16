@@ -21,6 +21,22 @@ if (flutterVersionName == null) {
     flutterVersionName = '1.0'
 }
 
+
+    def dartEnvironmentVariables = [
+        APP_NAME: 'cat-project',
+        APP_SUFFIX: null,
+        APP_ENV: 'default'
+]
+if (project.hasProperty('dart-defines')) {
+    // カンマ区切りかつBase64でエンコードされている dart-definesをデコードして変数に格納
+    dartEnvironmentVariables = dartEnvironmentVariables + project.property('dart-defines')
+        .split(',')
+        .collectEntries { entry ->
+            def pair = new String(entry.decodeBase64(), 'UTF-8').split('=')
+            [(pair.first()): pair.last()]
+        }
+}
+
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'kotlin-android'
@@ -43,12 +59,17 @@ android {
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.example.cat_project"
+        applicationId "com.catProject"
         minSdkVersion 31
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        print dartEnvironmentVariables.FLAVOR
+        if (dartEnvironmentVariables.FLAVOR != 'prod') {
+            applicationIdSuffix ".${dartEnvironmentVariables.FLAVOR}"
+        }
+        resValue "string", "app_name", "FlutterAT" +
+            (dartEnvironmentVariables.FLAVOR == 'prod' ? '' : ".${dartEnvironmentVariables.FLAVOR}")
     }
 
     signingConfigs {
@@ -76,26 +97,26 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:29.1.0')
     implementation 'com.google.firebase:firebase-analytics-ktx'
 }
-
-def dartEnvironmentVariables = [
-        APP_NAME: 'cat-project',
-        APP_SUFFIX: null,
-        APP_ENV: 'default'
-]
-
-if (project.hasProperty('dart-defines')) {
-    dartEnvironmentVariables = dartEnvironmentVariables + project.property('dart-defines')
-            .split(',')
-            .collectEntries { entry ->
-                def pair = new String(entry.decodeBase64(), 'UTF-8').split('=')
-                [(pair.first()): pair.last()]
-            }
-}
 android {
-...
     defaultConfig {
         applicationIdSuffix dartEnvironmentVariables.APP_SUFFIX
         resValue "string", "app_name", dartEnvironmentVariables.APP_NAME
     }
-...
+}
+
+task copySources(type: Copy) {
+   from "src/${dartEnvironmentVariables.FLAVOR}/res"
+   into 'src/main/res'
+}
+
+task selectGoogleServicesJson(type: Copy) {
+    from "src/${dartEnvironmentVariables.FLAVOR}/google-services.json"
+    into './'
+}
+
+tasks.whenTaskAdded { task ->
+   task.dependsOn copySources
+       if (task.name == 'processDebugGoogleServices' || task.name == 'processReleaseGoogleServices') {
+        task.dependsOn selectGoogleServicesJson
+    }
 }
