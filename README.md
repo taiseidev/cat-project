@@ -1,16 +1,32 @@
-# cat_project
+# CAT PROJECT
 
-A new Flutter project.
+## Project Environment
+- Flutter version 2.10.4
 
-## Getting Started
+## アプリ実行
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+- 開発環境：
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+```
+flutter run --dart-define=FLAVOR=dev
+```
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- ステージング：
+
+```
+flutter run --dart-define=FLAVOR=stg
+```
+
+- 本番環境 :
+
+```
+flutter run --dart-define=FLAVOR=prod
+```
+## FlutterアプリでFlavorを取得して使いたい場合
+
+```
+// `--dart-define=FLAVOR=dev` と指定した場合
+const flavor = String.fromEnvironment('FLAVOR');
+print(flavor) // dev
+```
