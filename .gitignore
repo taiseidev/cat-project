@@ -120,3 +120,4 @@ app.*.symbols
 android/app/google-services.json
 ios/Runner/GoogleService-Info.plist
 coverage/lcov.info
+.fvm/flutter_sdk
