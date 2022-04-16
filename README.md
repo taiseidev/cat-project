@@ -12,7 +12,7 @@
 flutter run --dart-define=FLAVOR=dev
 ```
 
-- ステージング：
+- ステージング環境：
 
 ```
 flutter run --dart-define=FLAVOR=stg
