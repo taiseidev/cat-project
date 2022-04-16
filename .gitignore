@@ -69,6 +69,7 @@ unlinked_spec.ds
 **/android/**/GeneratedPluginRegistrant.java
 **/android/key.properties
 *.jks
+ **/android/app/src/main/res/mipmap*/
 
 # iOS/XCode related
 **/ios/**/*.mode1v3
@@ -121,3 +122,6 @@ android/app/google-services.json
 ios/Runner/GoogleService-Info.plist
 coverage/lcov.info
 .fvm/flutter_sdk
+
+# firebase
+ **/android/app/google-services.json
