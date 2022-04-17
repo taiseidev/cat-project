@@ -1,0 +1,62 @@
+# 実行するワークフローを定義
+name: flutter analyze
+
+# トリガーを定義
+on:
+  # プルリク作成をトリガーに
+  pull_request:
+    # プルリク作成時とプルリクにコミットが行われた時
+    types: [opened, synchronize]
+    # developブランチを対象に
+    branches:
+      - develop
+
+  # GitHubから手動で実行可能に
+  workflow_dispatch:
+
+# 実行するジョブを定義
+jobs:
+  # ジョブ名を設定
+  flutter_analyze:
+
+    # ジョブを実行する仮想ホストマシンタイプ
+    runs-on: ubuntu-latest
+
+    # タイムアウト時間を設定
+    timeout-minutes: 5
+
+    # steps配下に実行したいアクションを定義。
+    # uses ・・・ GitHubやサードパーティで用意されているactionを使用する場合に記述
+    # run ・・・ 実行コマンド
+    steps:
+　　　　　　　　　　　　  # 該当リポジトリにチェックアウト
+      - name: checkout
+        uses: actions/checkout@v2
+
+　　　　　　　　　　　　
+      - name: flutter cache
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "2.10.4"
+          channel: "stable"
+          cache: true
+          cache-key: flutter
+          cache-path: ${{ runner.tool_cache }}/flutter
+
+      - name: install Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "2.10.4"
+          channel: "stable"
+
+　　　　　　　　　　　　　　 # flutter versionの確認
+      - name: flutter version
+        run: flutter --version
+
+      　　 # flutter pub get 実行
+      - name: flutter pub get
+        run: flutter pub get
+
+        # 静的解析の実行
+      - name: flutter analyze
+        run: flutter analyze
