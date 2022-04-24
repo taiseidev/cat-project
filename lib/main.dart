@@ -1,7 +1,6 @@
-import 'package:cat_project/pages/top_page.dart';
+import 'package:cat_project/route/route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:go_router/go_router.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -9,12 +8,12 @@ void main() {
     [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown],
   );
   runApp(
-    MyApp(),
+    const MyApp(),
   );
 }
 
 class MyApp extends StatelessWidget {
-  MyApp({Key? key}) : super(key: key);
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) => MaterialApp.router(
@@ -23,15 +22,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        routerDelegate: _router.routerDelegate,
-        routeInformationParser: _router.routeInformationParser,
+        routerDelegate: PageRoutes.router.routerDelegate,
+        routeInformationParser: PageRoutes.router.routeInformationParser,
       );
-  final _router = GoRouter(
-    routes: [
-      GoRoute(
-        path: '/',
-        builder: (context, state) => TopPage(),
-      ),
-    ],
-  );
 }
