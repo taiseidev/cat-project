@@ -1,4 +1,5 @@
 import 'package:cat_project/pages/top_page.dart';
+import 'package:cat_project/route/error_page.dart';
 import 'package:cat_project/route/page_path.dart';
 import 'package:go_router/go_router.dart';
 
@@ -11,5 +12,6 @@ class PageRoutes {
         builder: (context, state) => const TopPage(),
       ),
     ],
+    errorBuilder: (context, state) => const ErrorPage(),
   );
 }
