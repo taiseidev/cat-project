@@ -1,3 +1,5 @@
+// ignore_for_file: parameter_assignments
+
 import 'dart:ui';
 
 class HexColor extends Color {
