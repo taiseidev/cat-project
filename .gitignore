@@ -102,6 +102,9 @@ unlinked_spec.ds
 **/ios/Runner/GeneratedPluginRegistrant.*
 **/ios/Flutter/DartDefines.xcconfig
 **/ios/GoogleService-Info.plist
+**/ios/prod/GoogleService-Info.plist
+**/ios/dev/GoogleService-Info.plist
+**/ios/stg/GoogleService-Info.plist
 
 # macOS
 **/macos/Flutter/GeneratedPluginRegistrant.swift
