@@ -2,3 +2,5 @@ include: package:pedantic_mono/analysis_options.yaml
 linter:
   rules:
     depend_on_referenced_packages: false
+    avoid_classes_with_only_static_members: false
+    avoid_redundant_argument_values: false
