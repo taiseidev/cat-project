@@ -3,24 +3,26 @@ import 'package:cat_project/config/image_config.dart';
 import 'package:cat_project/config/text_config.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
-class TopPage extends StatelessWidget {
+class TopPage extends HookWidget {
   const TopPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _buildBody(context),
+      body: _buildBody(),
     );
   }
 
-  Widget _buildBody(BuildContext context) {
+  Widget _buildBody() {
     return Stack(
       alignment: Alignment.center,
       children: [
         _buildBackGroundImage(),
         _buildCover(),
-        _buildTopParts(context),
+        _buildTopParts(),
       ],
     );
   }
@@ -42,7 +44,7 @@ class TopPage extends StatelessWidget {
     );
   }
 
-  Widget _buildTopParts(BuildContext context) {
+  Widget _buildTopParts() {
     return Padding(
       padding: const EdgeInsets.fromLTRB(
         80,
@@ -59,7 +61,7 @@ class TopPage extends StatelessWidget {
           const SizedBox(
             height: 200,
           ),
-          _buildRuleText(context),
+          _buildRuleText(),
           const SizedBox(
             height: 20,
           ),
@@ -92,7 +94,8 @@ class TopPage extends StatelessWidget {
     );
   }
 
-  RichText _buildRuleText(BuildContext context) {
+  RichText _buildRuleText() {
+    final context = useContext();
     return RichText(
       text: TextSpan(
         style: TextStyle(
@@ -110,7 +113,7 @@ class TopPage extends StatelessWidget {
               color: HexColor('569DDE'),
             ),
             recognizer: TapGestureRecognizer()
-              ..onTap = () => buildNormalModal(context),
+              ..onTap = () => buildNormalModal(context, 'プライバシーポリシー'),
           ),
           TextSpan(
             text: ruleText[2],
@@ -121,7 +124,7 @@ class TopPage extends StatelessWidget {
               color: HexColor('569DDE'),
             ),
             recognizer: TapGestureRecognizer()
-              ..onTap = () => buildNormalModal(context),
+              ..onTap = () => buildNormalModal(context, '利用規約'),
           ),
           TextSpan(
             text: ruleText[4],
@@ -167,25 +170,48 @@ class TopPage extends StatelessWidget {
     );
   }
 
-  Future<void> buildNormalModal(BuildContext context) async {
-    await showModalBottomSheet<Widget>(
-      backgroundColor: Colors.transparent,
-      isScrollControlled: true,
+  Future<void> buildNormalModal(BuildContext context, String title) async {
+    await showBarModalBottomSheet<Widget>(
       context: context,
-      builder: (BuildContext context) {
-        return Container(
-          margin: const EdgeInsets.only(top: 64),
-          height: MediaQuery.of(context).size.height * 0.6,
-          decoration: const BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20),
-              topRight: Radius.circular(20),
-            ),
+      builder: (context) => Container(
+        margin: const EdgeInsets.all(16),
+        height: MediaQuery.of(context).size.height * 0.8,
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
           ),
-          child: const Text(''),
-        );
-      },
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  title,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: HexColor('F5B090'),
+                  ),
+                ),
+                TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: Text(
+                    '閉じる',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: HexColor('000000'),
+                    ),
+                  ),
+                )
+              ],
+            ),
+            const Text('後で追加'),
+          ],
+        ),
+      ),
     );
   }
 }
