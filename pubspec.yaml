@@ -11,11 +11,14 @@ dependencies:
   firebase_core: ^1.14.1
   flutter:
     sdk: flutter
+
   # state
   flutter_hooks: ^0.18.3
   hooks_riverpod: ^1.0.3
   # UI
   modal_bottom_sheet: ^2.0.1
+  # route
+  go_router: ^3.0.7
 
   # App
   package_info_plus: ^1.4.2
