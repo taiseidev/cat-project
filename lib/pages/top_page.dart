@@ -1,6 +1,7 @@
 import 'package:cat_project/config/color_config.dart';
 import 'package:cat_project/config/image_config.dart';
 import 'package:cat_project/config/text_config.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class TopPage extends StatelessWidget {
@@ -9,17 +10,17 @@ class TopPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _buildBody(),
+      body: _buildBody(context),
     );
   }
 
-  Widget _buildBody() {
+  Widget _buildBody(BuildContext context) {
     return Stack(
       alignment: Alignment.center,
       children: [
         _buildBackGroundImage(),
         _buildCover(),
-        _buildTopParts(),
+        _buildTopParts(context),
       ],
     );
   }
@@ -41,7 +42,7 @@ class TopPage extends StatelessWidget {
     );
   }
 
-  Widget _buildTopParts() {
+  Widget _buildTopParts(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(
         80,
@@ -58,7 +59,7 @@ class TopPage extends StatelessWidget {
           const SizedBox(
             height: 200,
           ),
-          _buildRuleText(),
+          _buildRuleText(context),
           const SizedBox(
             height: 20,
           ),
@@ -91,7 +92,7 @@ class TopPage extends StatelessWidget {
     );
   }
 
-  RichText _buildRuleText() {
+  RichText _buildRuleText(BuildContext context) {
     return RichText(
       text: TextSpan(
         style: TextStyle(
@@ -108,6 +109,8 @@ class TopPage extends StatelessWidget {
             style: TextStyle(
               color: HexColor('569DDE'),
             ),
+            recognizer: TapGestureRecognizer()
+              ..onTap = () => buildNormalModal(context),
           ),
           TextSpan(
             text: ruleText[2],
@@ -117,6 +120,8 @@ class TopPage extends StatelessWidget {
             style: TextStyle(
               color: HexColor('569DDE'),
             ),
+            recognizer: TapGestureRecognizer()
+              ..onTap = () => buildNormalModal(context),
           ),
           TextSpan(
             text: ruleText[4],
@@ -159,6 +164,28 @@ class TopPage extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+
+  Future<void> buildNormalModal(BuildContext context) async {
+    await showModalBottomSheet<Widget>(
+      backgroundColor: Colors.transparent,
+      isScrollControlled: true,
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          margin: const EdgeInsets.only(top: 64),
+          height: MediaQuery.of(context).size.height * 0.6,
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20),
+            ),
+          ),
+          child: const Text(''),
+        );
+      },
     );
   }
 }
