@@ -1,9 +1,12 @@
 import 'package:cat_project/config/color_config.dart';
 import 'package:cat_project/config/image_config.dart';
 import 'package:cat_project/config/text_config.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
-class TopPage extends StatelessWidget {
+class TopPage extends HookWidget {
   const TopPage({Key? key}) : super(key: key);
 
   @override
@@ -92,6 +95,7 @@ class TopPage extends StatelessWidget {
   }
 
   RichText _buildRuleText() {
+    final context = useContext();
     return RichText(
       text: TextSpan(
         style: TextStyle(
@@ -108,6 +112,8 @@ class TopPage extends StatelessWidget {
             style: TextStyle(
               color: HexColor('569DDE'),
             ),
+            recognizer: TapGestureRecognizer()
+              ..onTap = () => buildNormalModal(context, 'プライバシーポリシー'),
           ),
           TextSpan(
             text: ruleText[2],
@@ -117,6 +123,8 @@ class TopPage extends StatelessWidget {
             style: TextStyle(
               color: HexColor('569DDE'),
             ),
+            recognizer: TapGestureRecognizer()
+              ..onTap = () => buildNormalModal(context, '利用規約'),
           ),
           TextSpan(
             text: ruleText[4],
@@ -159,6 +167,51 @@ class TopPage extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+
+  Future<void> buildNormalModal(BuildContext context, String title) async {
+    await showBarModalBottomSheet<Widget>(
+      context: context,
+      builder: (context) => Container(
+        margin: const EdgeInsets.all(16),
+        height: MediaQuery.of(context).size.height * 0.8,
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
+          ),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  title,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: HexColor('F5B090'),
+                  ),
+                ),
+                TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: Text(
+                    '閉じる',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: HexColor('000000'),
+                    ),
+                  ),
+                )
+              ],
+            ),
+            const Text('後で追加'),
+          ],
+        ),
+      ),
     );
   }
 }
