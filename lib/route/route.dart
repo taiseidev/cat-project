@@ -14,7 +14,7 @@ class PageRoutes {
       ),
       GoRoute(
         path: PagePath.signUpPagePath,
-        builder: (context, state) => SignUpPage(),
+        builder: (context, state) => const SignUpPage(),
       ),
     ],
     errorBuilder: (context, state) => const ErrorPage(),

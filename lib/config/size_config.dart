@@ -2,20 +2,20 @@ import 'package:flutter/material.dart';
 
 class SizeConfig {
   // width
-  final width4 = const SizedBox(width: 4);
-  final width8 = const SizedBox(width: 8);
-  final width16 = const SizedBox(width: 16);
-  final width32 = const SizedBox(width: 32);
-  final width64 = const SizedBox(width: 64);
-  final width128 = const SizedBox(width: 128);
-  final width256 = const SizedBox(width: 256);
+  static const width4 = SizedBox(width: 4);
+  static const width8 = SizedBox(width: 8);
+  static const width16 = SizedBox(width: 16);
+  static const width32 = SizedBox(width: 32);
+  static const width64 = SizedBox(width: 64);
+  static const width128 = SizedBox(width: 128);
+  static const width256 = SizedBox(width: 256);
 
   // height
-  final height4 = const SizedBox(height: 4);
-  final height8 = const SizedBox(height: 8);
-  final height16 = const SizedBox(height: 16);
-  final height32 = const SizedBox(height: 32);
-  final height64 = const SizedBox(height: 64);
-  final height128 = const SizedBox(height: 128);
-  final height256 = const SizedBox(height: 256);
+  static const height4 = SizedBox(height: 4);
+  static const height8 = SizedBox(height: 8);
+  static const height16 = SizedBox(height: 16);
+  static const height32 = SizedBox(height: 32);
+  static const height64 = SizedBox(height: 64);
+  static const height128 = SizedBox(height: 128);
+  static const height256 = SizedBox(height: 256);
 }
