@@ -1,3 +1,4 @@
+import 'package:cat_project/pages/signUp_page.dart';
 import 'package:cat_project/pages/top_page.dart';
 import 'package:cat_project/route/error_page.dart';
 import 'package:cat_project/route/page_path.dart';
@@ -10,6 +11,10 @@ class PageRoutes {
       GoRoute(
         path: PagePath.topPagePath,
         builder: (context, state) => const TopPage(),
+      ),
+      GoRoute(
+        path: PagePath.signUpPagePath,
+        builder: (context, state) => const SignUpPage(),
       ),
     ],
     errorBuilder: (context, state) => const ErrorPage(),

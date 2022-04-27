@@ -4,6 +4,7 @@ import 'package:cat_project/config/text_config.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:go_router/go_router.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class TopPage extends HookWidget {
@@ -12,6 +13,7 @@ class TopPage extends HookWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: _buildBody(),
     );
   }
@@ -135,12 +137,13 @@ class TopPage extends HookWidget {
   }
 
   Widget _buildAuthButtons() {
+    final context = useContext();
     return Column(
       children: [
         SizedBox(
           width: 200,
           child: ElevatedButton(
-            onPressed: () {},
+            onPressed: () => context.push('/signUp'),
             style: ElevatedButton.styleFrom(
               primary: HexColor('F5B090'),
               onPrimary: HexColor('ffffff'),
