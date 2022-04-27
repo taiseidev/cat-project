@@ -13,6 +13,7 @@ class TopPage extends HookWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: _buildBody(),
     );
   }
@@ -142,7 +143,7 @@ class TopPage extends HookWidget {
         SizedBox(
           width: 200,
           child: ElevatedButton(
-            onPressed: () => context.go('/signUp'),
+            onPressed: () => context.push('/signUp'),
             style: ElevatedButton.styleFrom(
               primary: HexColor('F5B090'),
               onPrimary: HexColor('ffffff'),
