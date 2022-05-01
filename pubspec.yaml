@@ -8,6 +8,8 @@ environment:
   sdk: ">=2.16.2 <3.0.0"
 
 dependencies:
+  # auth
+  firebase_auth: ^3.3.16
   firebase_core: ^1.14.1
   flutter:
     sdk: flutter
@@ -17,10 +19,10 @@ dependencies:
   go_router: ^3.0.7
   # state
   hooks_riverpod: ^1.0.3
-  # UI
+  # ui
   modal_bottom_sheet: ^2.0.1
-
-  # App
+  pinput: ^2.2.7
+  # app
   package_info_plus: ^1.4.2
 
 
