@@ -1,33 +1,33 @@
-# 実行するワークフローを定義
+# Define the workflow to be executed
 name: flutter analyze
 
-# トリガーを定義
+# Define triggers
 on:
-  # プルリク作成をトリガーに
+  # Triggers the creation of a pull request.
   pull_request:
-    # プルリク作成時とプルリクにコミットが行われた時
+    # When a pull request is created and when the created pull request is committed
     types: [opened, synchronize]
-    # developブランチを対象に
+    # Targeting Develop Branches
     branches:
       - develop
 
-  # GitHubから手動で実行可能に
+  # Run manually from Github
   workflow_dispatch:
 
-# 実行するジョブを定義
+# Define jobs to be executed
 jobs:
-  # ジョブ名を設定
+  # Set job name
   flutter_analyze:
 
-    # ジョブを実行する仮想ホストマシンタイプ
+    # Virtual host machine on which to run the job
     runs-on: ubuntu-latest
 
-    # タイムアウト時間を設定
+    # Set timeout time
     timeout-minutes: 5
 
-    # steps配下に実行したいアクションを定義。
-    # uses ・・・ GitHubやサードパーティで用意されているactionを使用する場合に記述
-    # run ・・・ 実行コマンド
+    # Define actions to be executed under steps.
+    # uses ・・・ Description when using actions provided by GitHub or third parties.
+    # run ・・・ Execution command
     steps:
       - name: checkout
         uses: actions/checkout@v2
@@ -49,6 +49,6 @@ jobs:
       - name: flutter pub get
         run: flutter pub get
 
-        # 静的解析の実行
+        # Perform static analysis
       - name: flutter analyze
         run: flutter analyze
