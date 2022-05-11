@@ -26,8 +26,8 @@ The four main functions are
 - 📝 Comment (where everyone comments on the good things about their cats)
 - 👑 Ranking (Compete to see how cute your cat is. The top rankers may get a present.)
 
-Scheduled release: October 2020
-Scheduled for October 2020
+Scheduled release:
+Scheduled for October 2022
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
